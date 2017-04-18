@@ -1,0 +1,5 @@
+{
+  "dataset": "/home/enotique/Desktop/vocloud_unsupervised/data/preprocessed.csv",
+  "min_pts": 15,
+  "output": "//home/enotique/Desktop/vocloud_unsupervised/lof_out.csv"
+}

@@ -1,0 +1,62 @@
+
+
+base/
+	metrics.py - implementation for metrics: purity 
+	base_minimization.py - some functions for dimensionality reduction
+	data_utils.py - help functions for read / write files, paths, parse input data (with / without labels, etc)
+
+#------------------------ run tests --------------------------#
+
+#---- clustering (without biclustering)
+
+runUL.py - for runnung test on different methods. input config : input dattaset ("test", "ondr", "lamost"), methods, if use precomputed data ("euclidean", etc.) , see config_dbscan for example 
+	
+	methods: "kmeans", "minibatch", "affinity", "DBSCAN", "mean-shift", "spectral", "agglomerative"
+	
+	You should also change settings for algorithms in rc_update.py. Every algorithm has its own settings list. Fill dictionary according to tutorials for particular clustering algorithm. For kmeans and mini-batch will be also run with initial seeds choosing with k-means++ and pca-based. IMPORTANT also number of clusters is needed - set c_number variable.
+
+	benches.py - creates names for outfiles (according to parameters), run tests, write output
+
+
+#---- biclustering
+
+biclustering.py for Spectral Biclustering and Spectral Co-clustering. 
+	input params: 
+		- dataset_file
+		- "bi" for running Spectral Biclustering, "co" for Spectral Co-clustering and "both" for both
+		- row biclusters number ( diagonal in case of Spectral Co-clustering)
+		- column biclusters number (only for Spectral Biclustering)
+ 
+	output: 
+		out/out_biclustering.txt -estimations
+		out/labels/..... - labels for every sample
+		out/hsv/... - hsv - name of used colormap (in the beginning of the file).Path is always out/COLORMAPNAME/...
+
+run_biclustering - same  ( but for saving metacentrum session as spark job ). 
+	
+#---------------------- MINIMIZATION -------------------------#
+
+min_all.py - conf file as input with names of needed mizimization methods , input and output files.
+
+min_all_spark - same  ( but for saving metacentrum session as spark job ). 
+
+
+#--------------------------- LOF ----------------------------#
+
+run_lof_par.py - to start lof in spark. input - conf file, see lof_conf_lamost.json for example
+run_lof.py - to start lof sequential, see lof_conf.json for example
+
+lof/
+	lof_seq.py - lof algorithm
+	lof.py - spark code for lof
+	lof_neighbours.py - spark searching k-distance for big input data. (we didn't use it in our work)
+
+#--------------
+
+all scripts for posprocess vizualization are in directory vizualization
+
+
+
+#-------------- 
+
+directory spark_session_var contain dublicates of sckrits, used with spark on metacentrum.
